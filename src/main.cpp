@@ -1,6 +1,3 @@
-#include <tiny/term.h>
-
-tiny::ErrorLevel tiny::level{6};
 #include <cstdio>
 #include <filesystem>
 #include <vector>
@@ -10,6 +7,7 @@ tiny::ErrorLevel tiny::level{6};
 #include <chrono>
 #include <sstream>
 #include <tiny/term.h>
+tiny::ErrorLevel tiny::level{6};
 std::string root;
 std::string output;
 enum TYPE:unsigned char{
