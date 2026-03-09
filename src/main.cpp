@@ -14,7 +14,7 @@ std::string root;
 std::string output;
 enum TYPE:unsigned char{
     DIR=0,
-    FILE=1
+    FILEE=1
 };
 struct DATA{
     TYPE type;
@@ -60,7 +60,7 @@ bool scanchanges() {
             curr=(std::map<std::string,DATA>*)(*curr)[pstr].datapointer;
         }
         std::string fname=p.filename().string();
-        (*curr)[fname]={FILE,(void*)new std::string(fname)};
+        (*curr)[fname]={FILEE,(void*)new std::string(fname)};
     }
     if(tree){delete tree;}
     tree=newtree;
@@ -104,7 +104,7 @@ void writemenu(std::ofstream& f, std::string name, std::string fullpath, std::ma
     f << indent << "  <AppDir>" << fullpath << "</AppDir>\n";
     f << indent << "  <Include>\n";
     for (auto& p : *n) {
-        if (p.second.type == FILE)
+        if (p.second.type == FILEE)
             f << indent << "    <Filename>" << *(std::string*)p.second.datapointer << "</Filename>\n";
     }
     f << indent << "  </Include>\n";
@@ -133,14 +133,14 @@ void writemenu(std::ofstream& f, std::string name, std::string fullpath, std::ma
     for (auto& item : order) {
         std::string dtk = (item.find(".desktop") == std::string::npos) ? item + ".desktop" : item;
         for (auto& p : *n) {
-            if (p.second.type == FILE && !handled[p.first] && (p.first == item || p.first == dtk)) {
+            if (p.second.type == FILEE && !handled[p.first] && (p.first == item || p.first == dtk)) {
                 f << indent << "    <Filename>" << *(std::string*)p.second.datapointer << "</Filename>\n";
                 handled[p.first] = true;
             }
         }
     }
     for (auto& p : *n) {
-        if (p.second.type == FILE && !handled[p.first]) {
+        if (p.second.type == FILEE && !handled[p.first]) {
             f << indent << "    <Filename>" << *(std::string*)p.second.datapointer << "</Filename>\n";
         }
     }
